@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jesús Andrés Cisneros Zarate — DevOps & Cloud Engineer</title>
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <meta name="description" content="Jesús Andrés Cisneros Zarate- DevOps, Cloud, SRE, Networking. Portafolio profesional." />
+
+  <style>
+    :root{
+      --bg:#0b0d0f;
+      --card:#0f1113;
+      --muted:#9aa4b2;
+      --accent:#00b4ff;
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+      --maxw:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background: linear-gradient(180deg, #060607 0%, #0d1113 100%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    /* Container */
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:24px;}
+
+    /* HERO / tarjeta presentacion */
+    .hero {
+      display:flex;
+      gap:28px;
+      align-items:center;
+      background:linear-gradient(90deg, rgba(0,180,255,0.08), rgba(0,120,255,0.03));
+      border-radius:20px;
+      padding:24px;
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 8px 30px rgba(2,6,23,0.7);
+      overflow:hidden;
+    }
+
+    .hero-left {
+      width:260px;
+      min-width:160px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+    }
+
+    .photo-frame{
+      width:220px;height:220px;border-radius:50%;
+      background:linear-gradient(135deg,#0d1113,#0a2433);
+      padding:6px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 12px 30px rgba(0,180,255,0.07), inset 0 1px 0 rgba(255,255,255,0.02);
+    }
+
+    .photo-frame img{
+      width:100%;height:100%;border-radius:50%;object-fit:cover;
+      display:block;
+      transform: translateY(0);
+      animation: floaty 5.6s ease-in-out infinite;
+      border: 3px solid rgba(255,255,255,0.04);
+      background: #111;
+    }
+
+    @keyframes floaty {
+      0%{transform:translateY(0)}
+      50%{transform:translateY(-14px) rotate(-0.5deg)}
+      100%{transform:translateY(0)}
+    }
+
+    .hero-right{flex:1;min-width:280px}
+    .eyebrow{display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--muted);font-weight:600;font-size:13px}
+    h1{
+      margin:10px 0 8px;font-size:34px;line-height:1.02;font-weight:800;
+      letter-spacing:-0.4px;
+      color: #ffffff;
+    }
+    .roles{
+      display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:6px 0 12px;
+    }
+    .role-pill{background:var(--glass);padding:8px 12px;border-radius:999px;font-weight:600;color:var(--accent);font-size:13px;border:1px solid rgba(0,180,255,0.08)}
+
+    .typed{
+      font-weight:700;color:var(--accent);font-size:20px;height:26px;display:flex;align-items:center;
+      margin-bottom:8px;
+    }
+    .typed .cursor{display:inline-block;width:2px;height:22px;background:var(--accent);margin-left:8px;animation:blink .8s steps(2) infinite;}
+    @keyframes blink{50%{opacity:0}}
+
+    .hero-desc{color:var(--muted);max-width:720px;margin:10px 0 16px}
+    .cta-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .btn{
+      background:linear-gradient(90deg,var(--accent),#0073d6);
+      color:#00121a;padding:10px 16px;border-radius:10px;font-weight:700;text-decoration:none;border:none;cursor:pointer;
+      box-shadow: 0 8px 20px rgba(0,180,255,0.08);
+      transition: transform .18s ease, box-shadow .18s;
+    }
+    .btn:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,180,255,0.12)}
+
+    .ghost{
+      background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:8px 14px;border-radius:10px;text-decoration:none;font-weight:600;
+    }
+
+    /* Main sections */
+    section {margin-top:28px}
+    h2.section-title{text-transform:none;margin:0 0 14px;color:#eaf6ff;font-size:22px}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.03)
+    }
+
+    /* layout columns */
+    .grid-2{display:grid;grid-template-columns:1fr 420px;gap:22px;align-items:start}
+    @media (max-width:900px){.grid-2{grid-template-columns:1fr} .hero{flex-direction:column;align-items:center;text-align:center} .hero-left{width:100%} .hero-right{width:100%} .roles{justify-content:center} .cta-row{justify-content:center}}
+
+    /* certifications grid */
+    .cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+    .cert-grid img{width:100%;height:130px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:#0b0d0f}
+
+    /* resume list */
+    .resume-list{list-style:none;padding:0;margin:0}
+    .resume-list li{padding:10px 0;border-bottom:1px dashed rgba(255,255,255,0.02);display:flex;justify-content:space-between;gap:8px}
+    .muted{color:var(--muted);font-size:14px}
+
+    footer{margin:40px 0 12px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* small helpers */
+    .stack{display:flex;gap:8px;flex-wrap:wrap}
+    .pill{padding:6px 10px;background:rgba(255,255,255,0.02);border-radius:8px;font-weight:600;color:var(--muted);font-size:13px;border:1px solid rgba(255,255,255,0.02)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- HERO: tarjeta de presentación animada -->
+    <header class="hero" role="banner" aria-label="Presentación">
+      <div class="hero-left" aria-hidden="false">
+        <div class="photo-frame" title="Foto de Jesús Andrés Cisneros">
+          <!-- Reemplaza extensión si es necesario -->
+          <img src="Andresuki_foto-1.jpg" alt="Foto Andrés Cisneros">
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <span class="eyebrow">Hola — Soy</span>
+        <h1>Jesús Andrés Cisneros</h1>
+
+        <div class="roles" aria-hidden="true">
+          <span class="role-pill">DevOps</span>
+          <span class="role-pill">Cloud Engineer</span>
+          <span class="role-pill">SRE</span>
+          <span class="role-pill">Networking</span>
+        </div>
+
+        <!-- Texto rotativo tipo "soy Andrés" -->
+        <div class="typed" aria-live="polite">
+          <span id="rotator">Soy DevOps Engineer</span>
+          <span class="cursor" aria-hidden="true"></span>
+        </div>
+
+        <p class="hero-desc">
+          DevOps & Cloud Engineer con experiencia implementando pipelines CI/CD, IaC (Terraform), orquestación con Kubernetes, y automatización con Python. Enfocado en fiabilidad, disponibilidad y reducción de costos en infraestructuras.
+        </p>
+
+        <div class="cta-row">
+          <a class="btn" href="#contact">Contactar</a>
+          <a class="ghost" href="#certificaciones">Certificaciones</a>
+          <a class="ghost" href="#experiencia">Experiencia</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN: tu contenido (CV) -->
+    <main>
+
+      <!-- RESUMEN -->
+      <section>
+        <h2 class="section-title">Resumen Profesional</h2>
+        <div class="card">
+          <p style="margin:0">
+            DevOps Engineer con experiencia en Cloud (AWS, Azure, GCP), SRE y Networking. Experiencia desplegando infraestructuras con Terraform, orquestando clusters con Kubernetes (EKS/AKS), diseñando pipelines CI/CD y automatizando procesos con Python.
+          </p>
+        </div>
+      </section>
+
+      <!-- GRID: experiencia + lateral -->
+      <section class="grid-2">
+        <div>
+          <h2 class="section-title">Experiencia</h2>
+          <div class="card">
+            <ul class="resume-list" aria-label="Experiencia laboral">
+              <li>
+                <div>
+                  <strong>LKLPAY — DevOps / SRE</strong>
+                  <div class="muted">Abr 2025 — Actual</div>
+                </div>
+                <div class="muted" style="min-width:120px;text-align:right">Terraform · EKS · AKS</div>
+              </li>
+
+              <li>
+                <div>
+                  <strong>TRACTOSOL — Data Analyst</strong>
+                  <div class="muted">Dic 2024 — Mar 2025</div>
+                </div>
+                <div class="muted" style="min-width:120px;text-align:right">BigQuery · Looker Studio</div>
+              </li>
+
+              <li>
+                <div>
+                  <strong>Google / Infosys — Cloud Engineer Support</strong>
+                  <div class="muted">Abr 2021 — Feb 2023</div>
+                </div>
+                <div class="muted" style="min-width:120px;text-align:right">GCP · GKE · Networking</div>
+              </li>
+
+              <li>
+                <div>
+                  <strong>IBM — Network / Cloud Engineer</strong>
+                  <div class="muted">Ago 2018 — Feb 2021</div>
+                </div>
+                <div class="muted" style="min-width:120px;text-align:right">Firewalls · Routing</div>
+              </li>
+
+              <li>
+                <div>
+                  <strong>TCS — Network Engineer</strong>
+                  <div class="muted">Ago 2015 — Ago 2016</div>
+                </div>
+                <div class="muted" style="min-width:120px;text-align:right">L1 · Monitoring</div>
+              </li>
+
+            </ul>
+          </div>
+
+          <h2 class="section-title" style="margin-top:20px">Proyectos Personales</h2>
+          <div class="card">
+            <p class="muted" style="margin:0">Github: <a href="https://github.com/Fearthe5G" target="_blank" style="color:var(--accent);text-decoration:none">Fearthe5G</a>. Scripts de automatización, dashboards y proyectos con Python y Terraform.</p>
+          </div>
+
+          <h2 class="section-title" style="margin-top:20px">Skills destacadas</h2>
+          <div class="card stack" style="padding:14px">
+            <span class="pill">Terraform</span>
+            <span class="pill">Kubernetes (EKS/AKS)</span>
+            <span class="pill">Docker</span>
+            <span class="pill">Python</span>
+            <span class="pill">Jenkins / Azure DevOps</span>
+            <span class="pill">AWS / GCP / Azure</span>
+            <span class="pill">Networking</span>
+            <span class="pill">Prometheus / Grafana</span>
+          </div>
+
+        </div>
+
+        <!-- LATERAL: contacto, certificaciones -->
+        <aside>
+          <div class="card" id="contact">
+            <h3 style="margin:0 0 10px 0">Contacto</h3>
+            <p class="muted" style="margin:0 0 8px 0"><strong>Email:</strong> <a href="mailto:andres2cz22@gmail.com" style="color:var(--accent)">andres2cz22@gmail.com</a></p>
+            <p class="muted" style="margin:0 0 8px 0"><strong>Tel:</strong> <a href="tel:+523931061665" style="color:var(--accent)">+52 393 106 1665</a></p>
+            <p class="muted" style="margin:0 0 8px 0"><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/andr%C3%A9s-cisneros-z%C3%A1rate-361407149/" target="_blank" style="color:var(--accent)">Mi perfil</a></p>
+            <p class="muted" style="margin:0"><strong>GitHub:</strong> <a href="https://github.com/Fearthe5G" target="_blank" style="color:var(--accent)">Fearthe5G</a></p>
+          </div>
+
+          <div class="card" id="certificaciones" style="margin-top:18px">
+            <h3 style="margin:0 0 12px 0">Certificaciones</h3>
+            <p class="muted" style="margin:0 0 12px 0">Coloca las imágenes dentro de la carpeta <code>certificaciones/</code>. Ej: <em>python_total.jpg</em></p>
+            <div class="cert-grid" aria-live="polite">
+              <!-- Nombra tus imágenes exactamente como las pongas en la carpeta -->
+              <img src="certificaciones/python_total.jpg" alt="Python Total">
+              <img src="certificaciones/devops_total.jpg" alt="DevOps Total">
+              <img src="certificaciones/terraform.jpg" alt="Terraform">
+              <img src="certificaciones/looker.jpg" alt="Looker Studio">
+              <img src="certificaciones/azure_devops.jpg" alt="Azure DevOps">
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- DETALLE: educación, skills y counters -->
+      <section>
+        <h2 class="section-title">Educación</h2>
+        <div class="card">
+          <p style="margin:0"><strong>Centro Universitario de la Ciénega</strong> — Computer Engineer. Agosto 2009 – Mayo 2015.</p>
+        </div>
+
+        <h2 class="section-title" style="margin-top:18px">Resumen técnico</h2>
+        <div class="card">
+          <p class="muted" style="margin:0">
+            Especialidades: CI/CD, IaC, Contenedores, Orquestación, Monitoreo, Redes, Seguridad. Herramientas: Terraform, Docker, Kubernetes, Ansible, Jenkins, GitHub, BigQuery, Looker Studio.
+          </p>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      © 2025 Jesús Andrés Cisneros — DevOps & Cloud Engineer · <span class="muted">Hecho con ♥</span>
+    </footer>
+
+  </div>
+
+  <!-- SCRIPT: texto rotativo simple -->
+  <script>
+    (function(){
+      const frases = [
+        "Soy Andrés",
+        "DevOps Engineer",
+        "Cloud Engineer",
+        "SRE Specialist",
+        "AI & Automation"
+      ];
+
+      const el = document.getElementById('rotator');
+      let i = 0, j = 0, deleting = false, pause = 1600;
+
+      function tick(){
+        const full = frases[i];
+        if(!deleting){
+          j++;
+          el.textContent = full.slice(0,j);
+          if(j === full.length){
+            deleting = true;
+            setTimeout(tick, pause);
+            return;
+          }
+        } else {
+          j--;
+          el.textContent = full.slice(0,j);
+          if(j === 0){
+            deleting = false;
+            i = (i+1) % frases.length;
+          }
+        }
+        setTimeout(tick, deleting ? 60 : 90);
+      }
+      tick();
+    })();
+  </script>
+</body>
+</html>
+
