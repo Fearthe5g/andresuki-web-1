@@ -130,7 +130,29 @@
     /* certifications grid */
     .cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
     .cert-grid img{width:100%;height:130px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:#0b0d0f}
+.cert-grid a{
+    display:block;
+    border-radius:10px;
+    overflow:hidden;
+    transition:all .30s ease;
+}
 
+.cert-grid a:hover{
+    transform:translateY(-6px);
+}
+
+.cert-grid img{
+    width:100%;
+    height:130px;
+    object-fit:cover;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.05);
+    transition:all .30s ease;
+}
+
+.cert-grid img:hover{
+    box-shadow:0 10px 30px rgba(0,180,255,.35);
+}
     /* resume list */
     .resume-list{list-style:none;padding:0;margin:0}
     .resume-list li{padding:10px 0;border-bottom:1px dashed rgba(255,255,255,0.02);display:flex;justify-content:space-between;gap:8px}
@@ -276,17 +298,28 @@
           </div>
 
           <div class="card" id="certificaciones" style="margin-top:18px">
-            <h3 style="margin:0 0 12px 0">Certificaciones</h3>
-            <p class="muted" style="margin:0 0 12px 0">Coloca las imágenes dentro de la carpeta <code>certificaciones/</code>. Ej: <em>python_total.jpg</em></p>
-            <div class="cert-grid" aria-live="polite">
-              <!-- Nombra tus imágenes exactamente como las pongas en la carpeta -->
-              <img src="certificaciones/python_total.jpg" alt="Python Total">
-              <img src="certificaciones/devops_total.jpg" alt="DevOps Total">
-              <img src="certificaciones/terraform.jpg" alt="Terraform">
-              <img src="certificaciones/looker.jpg" alt="Looker Studio">
-              <img src="certificaciones/azure_devops.jpg" alt="Azure DevOps">
-            </div>
-          </div>
+    <h3 style="margin:0 0 12px 0">Certificaciones</h3>
+
+    <div class="cert-grid">
+
+        <a href="https://www.udemy.com/certificate/UC-52f18e0a-e89c-469e-8e83-14bec24dbdcb/" target="_blank">
+            <img src="certificaciones/Python.jpg" alt="Python Total">
+        </a>
+
+        <a href="https://www.udemy.com/certificate/UC-387a724b-e2d1-44d1-8301-e8071014b091/" target="_blank">
+            <img src="certificaciones/DevOpsTotal.jpg" alt="DevOps TOTAL">
+        </a>
+
+        <a href="https://www.udemy.com/certificate/UC-2776f27a-f902-4829-a2b6-75b4e2716885/" target="_blank">
+            <img src="certificaciones/terraform.jpg" alt="Terraform">
+        </a>
+
+        <a href="https://www.udemy.com/certificate/UC-eb207ce-1b2b-4a6e-903a-f817c0bc9141/" target="_blank">
+            <img src="certificaciones/AzureDevOps.jpg" alt="Azure DevOps">
+        </a>
+
+    </div>
+</div>
         </aside>
       </section>
 
