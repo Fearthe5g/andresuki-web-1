@@ -33,7 +33,11 @@
     }
 
     /* Container */
-    .wrap{max-width:var(--maxw);margin:28px auto;padding:24px;}
+    .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:24px;
+}
 
     /* HERO / tarjeta presentacion */
     .hero {
@@ -158,7 +162,7 @@
     .resume-list li{padding:10px 0;border-bottom:1px dashed rgba(255,255,255,0.02);display:flex;justify-content:space-between;gap:8px}
     .muted{color:var(--muted);font-size:14px}
 
-    footer{margin:40px 0 12px;text-align:center;color:var(--muted);font-size:13px}
+    footer{margin:100px 0 40px;text-align:center;color:var(--muted);font-size:13px}
 
     /* small helpers */
     .stack{display:flex;gap:8px;flex-wrap:wrap}
@@ -297,7 +301,7 @@
             <h3 style="margin:0 0 10px 0">Contacto</h3>
             <p class="muted" style="margin:0 0 8px 0"><strong>Email:</strong> <a href="mailto:andres2cz22@gmail.com" style="color:var(--accent)">andres2cz22@gmail.com</a></p>
             <p class="muted" style="margin:0 0 8px 0"><strong>Tel:</strong> <a href="tel:+523931061665" style="color:var(--accent)">+52 393 106 1665</a></p>
-            <p class="muted" style="margin:0 0 8px 0"><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/andr%C3%A9s-cisneros-z%C3%A1rate-361407149/" target="_blank" style="color:var(--accent)">Mi perfil</a></p>
+            <p class="muted" style="margin:0 0 8px 0"><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/jesus-andres-cisneros-zarate-361407149/" target="_blank" style="color:var(--accent)">Mi perfil</a></p>
             <p class="muted" style="margin:0"><strong>GitHub:</strong> <a href="https://github.com/Fearthe5G" target="_blank" style="color:var(--accent)">Fearthe5G</a></p>
           </div>
 
@@ -344,11 +348,36 @@
 
     </main>
 
-    <footer>
-      © 2025 Jesús Andrés Cisneros — DevOps & Cloud Engineer · <span class="muted">Hecho con ♥</span>
-    </footer>
+<div class="card" style="margin-top:25px;text-align:center">
 
-  </div>
+    👁 Visitors:
+    <span id="visit-counter">Loading...</span>
+
+</div>
+
+<div class="card" style="margin-top:20px;text-align:center;">
+
+    ❤️ Likes:
+    <span id="like-counter">Loading...</span>
+
+    <br><br>
+
+    <button id="like-button" class="btn">
+        👍 Like
+    </button>
+
+</div>
+
+
+<div class="card" style="margin-top:40px;">
+    <footer>
+        © 2025 Jesús Andrés Cisneros —
+        DevOps & Cloud Engineer ·
+        <span class="muted">Hecho con ♥</span>
+    </footer>
+</div>
+
+</div>
 
   <!-- SCRIPT: texto rotativo simple -->
   <script>
@@ -385,8 +414,71 @@
         setTimeout(tick, deleting ? 60 : 90);
       }
       tick();
-    })();
-  </script>
-</body>
-</html>
+    })();// ===============================
+// VISITORS
+// ===============================
 
+fetch("https://api.countapi.xyz/hit/andresuki-devops-cv/visitas")
+.then(res => res.json())
+.then(data => {
+
+    document.getElementById("visit-counter").textContent = data.value;
+
+})
+.catch(err => {
+
+    console.error(err);
+    document.getElementById("visit-counter").textContent="Offline";
+
+});
+
+
+// ===============================
+// LIKES
+// ===============================
+
+fetch("https://api.countapi.xyz/get/andresuki-devops-cv/likes")
+.then(res=>res.json())
+.then(data=>{
+
+    document.getElementById("like-counter").textContent=data.value;
+
+})
+.catch(()=>{
+
+    document.getElementById("like-counter").textContent="0";
+
+});
+
+
+// ===============================
+// LIKE BUTTON
+// ===============================
+
+const btn=document.getElementById("like-button");
+
+if(localStorage.getItem("portfolio-liked")){
+
+    btn.disabled=true;
+    btn.innerHTML="❤️ Thanks";
+
+}
+
+btn.addEventListener("click",()=>{
+
+    fetch("https://api.countapi.xyz/hit/andresuki-devops-cv/likes")
+
+    .then(res=>res.json())
+
+    .then(data=>{
+
+        document.getElementById("like-counter").textContent=data.value;
+
+        localStorage.setItem("portfolio-liked","yes");
+
+        btn.disabled=true;
+        btn.innerHTML="❤️ Thanks";
+
+    });
+
+});
