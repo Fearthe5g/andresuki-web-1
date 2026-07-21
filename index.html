@@ -171,10 +171,6 @@
 </head>
 <body>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-import { getFirestore, doc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyCH0-dsK9F_S8hLe97dL-kaHVrc_tnsE4M",
   authDomain: "andresuki-counter.firebaseapp.com",
@@ -400,7 +396,29 @@ window.__ref=doc(db,"stats","portafolio");
 </div>
 
   <!-- SCRIPT: texto rotativo simple -->
-  <script>
+  <<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    updateDoc,
+    increment
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCH0-dsK9F_S8hLe97dL-kaHVrc_tnsE4M",
+    authDomain: "andresuki-counter.firebaseapp.com",
+    projectId: "andresuki-counter",
+    storageBucket: "andresuki-counter.firebasestorage.app",
+    messagingSenderId: "117249793353",
+    appId: "1:117249793353:web:f153ae1b898609a3cc4e98"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const ref = doc(db, "stats", "portafolio");
     (function(){
       const frases = [
         "Soy Andrés",
