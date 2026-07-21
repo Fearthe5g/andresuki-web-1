@@ -171,21 +171,6 @@
 </head>
 <body>
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCH0-dsK9F_S8hLe97dL-kaHVrc_tnsE4M",
-  authDomain: "andresuki-counter.firebaseapp.com",
-  projectId: "andresuki-counter",
-  storageBucket: "andresuki-counter.firebasestorage.app",
-  messagingSenderId: "117249793353",
-  appId: "1:117249793353:web:f153ae1b898609a3cc4e98",
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-window.__db=db;
-window.__ref=doc(db,"stats","portafolio");
-</script>
-
   <div class="wrap">
 
     <!-- HERO: tarjeta de presentación animada -->
@@ -395,68 +380,34 @@ window.__ref=doc(db,"stats","portafolio");
 
 </div>
 
-  <!-- SCRIPT: texto rotativo simple -->
-  <<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+  <!-- SCRIPT -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { getFirestore, doc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-import {
-    getFirestore,
-    doc,
-    getDoc,
-    updateDoc,
-    increment
-} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyCH0-dsK9F_S8hLe97dL-kaHVrc_tnsE4M",
-    authDomain: "andresuki-counter.firebaseapp.com",
-    projectId: "andresuki-counter",
-    storageBucket: "andresuki-counter.firebasestorage.app",
-    messagingSenderId: "117249793353",
-    appId: "1:117249793353:web:f153ae1b898609a3cc4e98"
+const firebaseConfig={
+ apiKey:"AIzaSyCH0-dsK9F_S8hLe97dL-kaHVrc_tnsE4M",
+ authDomain:"andresuki-counter.firebaseapp.com",
+ projectId:"andresuki-counter",
+ storageBucket:"andresuki-counter.firebasestorage.app",
+ messagingSenderId:"117249793353",
+ appId:"1:117249793353:web:f153ae1b898609a3cc4e98"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const ref = doc(db, "stats", "portafolio");
-    (function(){
-      const frases = [
-        "Soy Andrés",
-        "DevOps Engineer",
-        "Cloud Engineer",
-        "SRE Specialist",
-        "AI & Automation"
-      ];
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+const ref=doc(db,"stats","portafolio");
 
-      const el = document.getElementById('rotator');
-      let i = 0, j = 0, deleting = false, pause = 1600;
+const frases=["Soy Andrés","DevOps Engineer","Cloud Engineer","SRE Specialist","AI & Automation"];
+const el=document.getElementById("rotator");
+let i=0,j=0,del=false;
+(function tick(){
+ const f=frases[i];
+ if(!del){j++;el.textContent=f.slice(0,j);if(j===f.length){del=true;return setTimeout(tick,1600);}}
+ else{j--;el.textContent=f.slice(0,j);if(j===0){del=false;i=(i+1)%frases.length;}}
+ setTimeout(tick,del?60:90);
+})();
 
-      function tick(){
-        const full = frases[i];
-        if(!deleting){
-          j++;
-          el.textContent = full.slice(0,j);
-          if(j === full.length){
-            deleting = true;
-            setTimeout(tick, pause);
-            return;
-          }
-        } else {
-          j--;
-          el.textContent = full.slice(0,j);
-          if(j === 0){
-            deleting = false;
-            i = (i+1) % frases.length;
-          }
-        }
-        setTimeout(tick, deleting ? 60 : 90);
-      }
-      tick();
-    })();// ===============================
-// FIRESTORE COUNTERS
-// ===============================
-(async ()=>{
-const ref=window.__ref;
 const btn=document.getElementById("like-button");
 try{
  const snap=await getDoc(ref);
@@ -470,16 +421,21 @@ try{
  console.error(e);
  document.getElementById("visit-counter").textContent="Error";
 }
+
 if(localStorage.getItem("portfolio-liked")){
- btn.disabled=true;btn.innerHTML="❤️ Thanks";
+ btn.disabled=true;
+ btn.innerHTML="❤️ Thanks";
 }
-btn.addEventListener("click",async()=>{
+
+btn.onclick=async()=>{
  if(localStorage.getItem("portfolio-liked")) return;
  await updateDoc(ref,{likes:increment(1)});
  const s=await getDoc(ref);
  document.getElementById("like-counter").textContent=s.data().likes;
  localStorage.setItem("portfolio-liked","yes");
- btn.disabled=true;btn.innerHTML="❤️ Thanks";
-});
-})();
+ btn.disabled=true;
+ btn.innerHTML="❤️ Thanks";
+};
 </script>
+</body>
+</html>
