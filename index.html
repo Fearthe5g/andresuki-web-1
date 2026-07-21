@@ -172,27 +172,22 @@
 <body>
 
 <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { getFirestore, doc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyCH0-dsK9F_S8hLe97dL-kaHVrc_tnsE4M",
-    authDomain: "andresuki-counter.firebaseapp.com",
-    projectId: "andresuki-counter",
-    storageBucket: "andresuki-counter.firebasestorage.app",
-    messagingSenderId: "117249793353",
-    appId: "1:117249793353:web:f153ae1b898609a3cc4e98",
-    measurementId: "G-WYXD9TNK0J"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyCH0-dsK9F_S8hLe97dL-kaHVrc_tnsE4M",
+  authDomain: "andresuki-counter.firebaseapp.com",
+  projectId: "andresuki-counter",
+  storageBucket: "andresuki-counter.firebasestorage.app",
+  messagingSenderId: "117249793353",
+  appId: "1:117249793353:web:f153ae1b898609a3cc4e98",
+};
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+window.__db=db;
+window.__ref=doc(db,"stats","portafolio");
 </script>
 
   <div class="wrap">
@@ -440,70 +435,33 @@
       }
       tick();
     })();// ===============================
-// VISITORS
+// FIRESTORE COUNTERS
 // ===============================
-
-fetch("https://api.countapi.xyz/hit/andresuki-devops-cv/visitas")
-.then(res => res.json())
-.then(data => {
-
-    document.getElementById("visit-counter").textContent = data.value;
-
-})
-.catch(err => {
-
-    console.error(err);
-    document.getElementById("visit-counter").textContent="Offline";
-
-});
-
-
-// ===============================
-// LIKES
-// ===============================
-
-fetch("https://api.countapi.xyz/get/andresuki-devops-cv/likes")
-.then(res=>res.json())
-.then(data=>{
-
-    document.getElementById("like-counter").textContent=data.value;
-
-})
-.catch(()=>{
-
-    document.getElementById("like-counter").textContent="0";
-
-});
-
-
-// ===============================
-// LIKE BUTTON
-// ===============================
-
+(async ()=>{
+const ref=window.__ref;
 const btn=document.getElementById("like-button");
-
-if(localStorage.getItem("portfolio-liked")){
-
-    btn.disabled=true;
-    btn.innerHTML="❤️ Thanks";
-
+try{
+ const snap=await getDoc(ref);
+ if(snap.exists()){
+   const d=snap.data();
+   await updateDoc(ref,{visitors:increment(1)});
+   document.getElementById("visit-counter").textContent=(d.visitors||0)+1;
+   document.getElementById("like-counter").textContent=d.likes||0;
+ }
+}catch(e){
+ console.error(e);
+ document.getElementById("visit-counter").textContent="Error";
 }
-
-btn.addEventListener("click",()=>{
-
-    fetch("https://api.countapi.xyz/hit/andresuki-devops-cv/likes")
-
-    .then(res=>res.json())
-
-    .then(data=>{
-
-        document.getElementById("like-counter").textContent=data.value;
-
-        localStorage.setItem("portfolio-liked","yes");
-
-        btn.disabled=true;
-        btn.innerHTML="❤️ Thanks";
-
-    });
-
+if(localStorage.getItem("portfolio-liked")){
+ btn.disabled=true;btn.innerHTML="❤️ Thanks";
+}
+btn.addEventListener("click",async()=>{
+ if(localStorage.getItem("portfolio-liked")) return;
+ await updateDoc(ref,{likes:increment(1)});
+ const s=await getDoc(ref);
+ document.getElementById("like-counter").textContent=s.data().likes;
+ localStorage.setItem("portfolio-liked","yes");
+ btn.disabled=true;btn.innerHTML="❤️ Thanks";
 });
+})();
+</script>
